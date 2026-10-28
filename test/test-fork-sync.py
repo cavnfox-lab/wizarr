@@ -14,7 +14,7 @@ class SyncCaller(unittest.TestCase):
     def test_reviewed_immutable_shared_reference(self):
         self.assertRegex(
             CONFIG["jobs"]["sync"]["uses"],
-            r"^NotCavnfox/\.github/\.github/workflows/sync-upstream\.yml@[0-9a-f]{40}$",
+            r"^cavnfox-lab/\.github/\.github/workflows/sync-upstream\.yml@[0-9a-f]{40}$",
         )
 
     def test_caller_identity_and_authority(self):
