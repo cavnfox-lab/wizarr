@@ -33,7 +33,7 @@ jobs:
       contents: read
       packages: write
     with:
-      image_name: ghcr.io/notcavnfox/wizarr
+      image_name: ghcr.io/${{ github.repository }}
       smoke_port: 5690
       smoke_path: /
       compose_test: true
