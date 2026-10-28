@@ -19,7 +19,7 @@ permissions:
 jobs:
   sync:
     # Pin the reviewed, merged shared revision.
-    uses: NotCavnfox/.github/.github/workflows/sync-upstream.yml@fe15ddf831801f4c8215141217fec0afb9d22533
+    uses: cavnfox-lab/.github/.github/workflows/sync-upstream.yml@fe15ddf831801f4c8215141217fec0afb9d22533
     with:
       upstream_repo: wizarrrr/wizarr
       base_branch: main

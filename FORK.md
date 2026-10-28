@@ -12,7 +12,7 @@ Keep fork changes small; preserve them when accepting stable upstream releases.
   protection; this document does not enforce it. Source merges do not publish images.
 - `fork-auto-release` is now a manual dispatcher despite its historical filename.
   After owner approval, supply exact `release_sha`, published stable `upstream_tag`,
-  and `release_tag` (upstream tag or an unused `-fork.N` suffix). Latest exact-SHA fork
+  and `release_tag` (`<upstream tag>-cav.N`, `N` unused; the image is published as exactly that tag). Latest exact-SHA fork
   CI must pass, source must be in `main` and contain upstream, and the selected
   publisher must match the current publisher. Existing tags are never moved.
 - `fork-release` publishes only on explicit version-tag dispatch. Inherited upstream

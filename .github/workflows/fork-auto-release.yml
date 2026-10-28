@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       release_tag:
-        description: Approved fork tag (upstream tag, optionally followed by -fork.N)
+        description: Approved fork tag (upstream tag followed by -cav.N, e.g. v1.2.3-cav.1)
         required: true
         type: string
       release_sha:
@@ -49,10 +49,8 @@ jobs:
           set -euo pipefail
           [[ "$UPSTREAM_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
           [[ "$RELEASE_SHA" =~ ^[0-9a-f]{40}$ ]]
-          if [[ "$RELEASE_TAG" != "$UPSTREAM_TAG" ]]; then
-            SUFFIX=${RELEASE_TAG#"$UPSTREAM_TAG"}
-            [[ "$RELEASE_TAG" == "$UPSTREAM_TAG"* && "$SUFFIX" =~ ^-fork\.[1-9][0-9]*$ ]]
-          fi
+          [[ "$RELEASE_TAG" == "$UPSTREAM_TAG"-cav.* ]]
+          [[ "${RELEASE_TAG#"$UPSTREAM_TAG"}" =~ ^-cav\.[1-9][0-9]*$ ]]
           RELEASE=$(gh api "repos/$UPSTREAM_REPO/releases/tags/$UPSTREAM_TAG")
           jq -e --arg tag "$UPSTREAM_TAG" '(.tag_name == $tag) and (.draft == false) and (.prerelease == false) and (.published_at != null)' <<< "$RELEASE" >/dev/null
           git fetch --no-tags "https://github.com/$UPSTREAM_REPO.git" "refs/tags/$UPSTREAM_TAG:refs/upsync/release"
