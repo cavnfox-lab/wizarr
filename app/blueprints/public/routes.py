@@ -14,6 +14,7 @@ from flask import (
     url_for,
 )
 from flask_babel import gettext as _
+from flask_login import current_user
 
 from app.extensions import db, limiter
 from app.models import Invitation, MediaServer, Settings, User
@@ -72,6 +73,9 @@ def root():
     admin_setting = Settings.query.filter_by(key="admin_username").first()
     if not admin_setting:
         return redirect("/setup/")  # installation wizard
+    if not current_user.is_authenticated:
+        # Fork: guests land on the invite-code page, not the admin login.
+        return redirect("/join")
     return redirect("/admin")
 
 
